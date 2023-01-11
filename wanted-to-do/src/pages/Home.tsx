@@ -1,13 +1,5 @@
-import { useEffect } from "react";
-import { getTodos } from "../commons/api/getTodos";
+import HomeContainer from "../components/Home/Home.container";
 
-export default function Home() {
-  useEffect(() => {
-    getTodos().then((res) => console.log(res));
-  }, []);
-  return (
-    <>
-      <div>홈</div>
-    </>
-  );
+export default function HomePage() {
+  return <HomeContainer />;
 }
