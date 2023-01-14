@@ -1,18 +1,36 @@
 import styled from "styled-components";
 
-export default function SignUpUI() {
+interface Props {
+  onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  emailErrorTxt: string;
+  passwordErrorTxt: string;
+  onClickSignUp: () => void;
+  isVerifySignupForm: boolean;
+}
+
+export default function SignUpUI({
+  onChangeEmail,
+  onChangePassword,
+  emailErrorTxt,
+  passwordErrorTxt,
+  onClickSignUp,
+  isVerifySignupForm,
+}: Props) {
   return (
     <>
       <Wrap>
         <InputWrap>
           <span>이메일</span>
-          <input />
+          <input onChange={(e) => onChangeEmail(e)} />
         </InputWrap>
+        <ErrorText>{emailErrorTxt}</ErrorText>
         <InputWrap>
           <span>비밀번호</span>
-          <input />
+          <input onChange={(e) => onChangePassword(e)} />
         </InputWrap>
-        <button>가입하기</button>
+        <ErrorText>{passwordErrorTxt}</ErrorText>
+        <button disabled={!isVerifySignupForm}>가입하기</button>
       </Wrap>
     </>
   );
@@ -27,4 +45,8 @@ const InputWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+`;
+
+const ErrorText = styled.div`
+  color: red;
 `;
