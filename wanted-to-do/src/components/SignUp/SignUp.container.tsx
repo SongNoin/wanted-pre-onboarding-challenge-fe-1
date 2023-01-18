@@ -55,7 +55,7 @@ export default function SignUpContainer() {
         email,
         password,
       }),
-    });
+    }).then((res) => res.json().then((json) => alert(json.details)));
   }
 
   return (
