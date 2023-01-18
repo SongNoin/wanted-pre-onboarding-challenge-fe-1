@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { emailRegex, passwordRegex } from "../../commons/utils/regrex";
 import SignUpUI from "./SignUp.presenter";
 
 export default function SignUpContainer() {
@@ -6,6 +7,7 @@ export default function SignUpContainer() {
   const [password, setPassword] = useState("");
   const [emailErrorTxt, setEmailErrorTxt] = useState("");
   const [passwordErrorTxt, setPasswordErrorTxt] = useState("");
+
   const isVerifySignupForm =
     email !== "" &&
     password !== "" &&
@@ -15,24 +17,37 @@ export default function SignUpContainer() {
   function onChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "") {
       setEmailErrorTxt("이메일을 입력해주세요");
-    } else if (!e.target.value.includes("@") || !e.target.value.includes(".")) {
+      return;
+    }
+
+    if (!emailRegex.test(e.target.value)) {
       setEmailErrorTxt("이메일 형식으로 입력해주세요 ex) wanted@naver.com");
-    } else setEmailErrorTxt("");
+      return;
+    }
+
+    setEmailErrorTxt("");
+
     setEmail(e.target.value);
   }
 
   function onChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "") {
       setPasswordErrorTxt("비밀번호를 입력해주세요");
-    } else if (e.target.value.length < 8) {
-      setPasswordErrorTxt("비밀번호를 8자 이상 입력해주세요");
-    } else setPasswordErrorTxt("");
+      return;
+    }
+
+    if (!passwordRegex.test(e.target.value)) {
+      setPasswordErrorTxt("비밀번호를 8자 이상, 영문숫자조합으로 입력해주세요");
+      return;
+    }
+    setPasswordErrorTxt("");
 
     setPassword(e.target.value);
   }
 
   function onClickSignUp() {
     fetch(`http://localhost:8080/users/create`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
