@@ -1,8 +1,10 @@
 import { useState } from "react";
+import useSignUp from "../../commons/hooks/useSignUp";
 import { emailRegex, passwordRegex } from "../../commons/utils/regrex";
 import SignUpUI from "./SignUp.presenter";
 
 export default function SignUpContainer() {
+  const { mutate } = useSignUp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailErrorTxt, setEmailErrorTxt] = useState("");
@@ -46,16 +48,7 @@ export default function SignUpContainer() {
   }
 
   function onClickSignUp() {
-    fetch(`http://localhost:8080/users/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    }).then((res) => res.json().then((json) => alert(json.details)));
+    mutate({ email, password });
   }
 
   return (
