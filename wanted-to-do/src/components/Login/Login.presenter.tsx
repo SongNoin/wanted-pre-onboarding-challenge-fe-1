@@ -1,18 +1,28 @@
 import styled from "styled-components";
 
-export default function LoginUI() {
+interface Props {
+  onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickLogin: () => void;
+}
+
+export default function LoginUI({
+  onChangeEmail,
+  onChangePassword,
+  onClickLogin,
+}: Props) {
   return (
     <>
       <Wrap>
         <InputWrap>
           <span>이메일</span>
-          <input />
+          <input onChange={(e) => onChangeEmail(e)} />
         </InputWrap>
         <InputWrap>
           <span>비밀번호</span>
-          <input />
+          <input type="password" onChange={(e) => onChangePassword(e)} />
         </InputWrap>
-        <button>로그인</button>
+        <button onClick={onClickLogin}>로그인</button>
       </Wrap>
     </>
   );
