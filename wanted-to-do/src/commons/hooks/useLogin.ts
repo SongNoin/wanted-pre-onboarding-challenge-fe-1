@@ -9,6 +9,7 @@ const useLogin = () => {
       onSuccess: (data) => {
         const token = data.data.token;
         localStorage.setItem("accessToken", token);
+        window.location.reload();
         alert("환영합니다");
       },
       onError: () => {

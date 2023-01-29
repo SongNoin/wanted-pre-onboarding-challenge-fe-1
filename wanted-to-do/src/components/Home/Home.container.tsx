@@ -12,10 +12,16 @@ export default function HomeContainer() {
     navigate("/signup");
   }
 
+  function onClickMoveToLogout() {
+    localStorage.setItem("accessToken", "");
+    window.location.reload();
+  }
+
   return (
     <HomeUI
       onClickMoveToLogin={onClickMoveToLogin}
       onClickMoveToSignUp={onClickMoveToSignUp}
+      onClickMoveToLogout={onClickMoveToLogout}
     />
   );
 }
