@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ITodo } from "../../commons/types/ITodo";
 import { isLogin } from "../../commons/utils/isLogin";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
   onClickMoveToSignUp: () => void;
   onClickMoveToLogout: () => void;
   onClickCreateTestTodo: () => void;
-  data: any;
+  data: ITodo[];
 }
 
 export default function HomeUI({
@@ -25,9 +26,10 @@ export default function HomeUI({
         </button>
         <button onClick={onClickMoveToSignUp}>회원가입</button>
         <button onClick={onClickCreateTestTodo}>투두 테스트</button>
-        {data.map((el: any) => {
-          return <div>{el.content}</div>;
-        })}
+        {data &&
+          data.map((el: any) => {
+            return <div>{el.title}</div>;
+          })}
       </Wrap>
     </>
   );

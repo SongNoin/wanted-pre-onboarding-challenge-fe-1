@@ -5,8 +5,8 @@ import HomeUI from "./Home.presenter";
 
 export default function HomeContainer() {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetTodos();
-  const { mutate } = useCreateTodo();
+  const { todoData, isLoading } = useGetTodos();
+  const { mutate: onMutateCreateTodo } = useCreateTodo();
 
   function onClickMoveToLogin() {
     navigate("/login");
@@ -22,7 +22,7 @@ export default function HomeContainer() {
   }
 
   function onClickCreateTestTodo() {
-    mutate({ title: "test", content: "test" });
+    onMutateCreateTodo({ title: "test", content: "test" });
   }
 
   return (
@@ -31,7 +31,7 @@ export default function HomeContainer() {
       onClickMoveToSignUp={onClickMoveToSignUp}
       onClickMoveToLogout={onClickMoveToLogout}
       onClickCreateTestTodo={onClickCreateTestTodo}
-      data={data?.data.data}
+      data={todoData}
     />
   );
 }
