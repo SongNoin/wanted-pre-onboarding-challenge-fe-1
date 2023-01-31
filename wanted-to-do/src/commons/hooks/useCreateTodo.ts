@@ -1,10 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { createTodoApi } from "../api/todos/createTodo";
+import { ITodo } from "../types/ITodo";
 
 const useCreateTodo = () => {
   const { mutate, data, isSuccess } = useMutation(
     ["createTodo"],
-    (todoData: { title: string; content: string }) => createTodoApi(todoData),
+    (todoData: ITodo) => createTodoApi(todoData),
     {
       onSuccess: (data) => {
         alert("할일이 등록되었습니다.");
